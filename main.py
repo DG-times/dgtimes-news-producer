@@ -26,19 +26,17 @@ if __name__ == '__main__':
 
         if args == "--set":
             is_push_start = True
-            sets = sys.argv[i+1]
+            sets = int(sys.argv[i+1])
         
         if args == "--delay":
             if not is_push_start:
                 print("WARING : Before Setting Delay, Setting Sets First")
                 break
-            delay = sys.argv[i+1]
+            delay = float(sys.argv[i+1])
     
     if is_push_start:
         print(f"INFO : {int(sets) * 1000} Data And {delay}'s Delay ")
 
-        """
-        for i in tqdm(range(1)):
+        for i in tqdm(range(sets)):
             news = JsonFileManager.read_data_from_local(f"data/{i}.json")
             send_data_to_broker.run(news, delay)
-        """

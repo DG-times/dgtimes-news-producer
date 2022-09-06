@@ -19,7 +19,7 @@ class News:
         self.publishedDate = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.mainUrl = "https://news.naver.com/"
         self.thumbnailUrl = News.get_thumbnail_url(self.publisher)
-        self.keyword = keyword
+        self.keywords = list(keyword.keys())
 
     def get_publisher():
         publisher_list = ["전북일보", "충청일보", "경기일보", "강원일보", "부산일보", "경북일보", "전남일보", "영남일보", "한국일보", "중앙일보", "국민일보", "세계일보"]
@@ -55,11 +55,13 @@ class News:
     
     def make_tags(keyword):
 
-        tags_length = len(keyword) if len(keyword) < 3 else 3
+        sorted_keyword = sorted(keyword.items(), key = lambda item: item[1], reverse = True)
+
+        tags_length = len(sorted_keyword) if len(keyword) < 3 else 3
 
         tags = ""
         for i in range(tags_length):
-            tags = tags + " #" + keyword[i][0]
+            tags = tags + " #" + sorted_keyword[i][0]
         
         return tags
 

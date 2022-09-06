@@ -15,13 +15,9 @@ def run():
     for i in tqdm(range(len(source_data))):
 
         news = source_data[i]["news"]
-        sorted_keyword = sorted(source_data[i]["keyword"].items(), key = lambda item: item[1], reverse = True)
-        news_list.append(News(news["title"], news["content"], sorted_keyword).toJSON())
+        news_list.append(News(news["title"], news["content"], source_data[i]["keyword"]).toJSON())
 
-        if i % 1000 == 0 or i == len(source_data)-1:
+        if (i+1) % 1000 == 0 or i+1 == len(source_data):
             JsonFileManager.save_data_in_local(f"data/{count}.json",news_list)
             count += 1
             news_list = []
-
-
-
